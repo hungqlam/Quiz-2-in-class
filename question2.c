@@ -23,7 +23,9 @@ int main() {
         int result=1;
         int checker = 0;
         struct gameHistory arr_game[Max];
-
+        int step = 0;
+        int win = 0;
+        int lose =0;
         //persist data STEP 
         FILE *fptr;
         fptr = fopen("C:/Users/notic/git/restaurantBill/restaurantBill.c/save_user_max_number.txt","r");
@@ -52,28 +54,32 @@ int main() {
                 
                 printf("Enter your number: ");
                 scanf("%d",&a);
-                arr_game[count].game_count+=1;
+                arr_game[count].game_count=count+1;
 
                 if(a>result)
                 {
                     printf("Your value is higher than  value of the result\n");
-                    arr_game[count].totalGuess+=1;
+                    step = step+1;
+                    arr_game[count].totalGuess=step;
                 }
 
                 if(a<result)
                 {
                      printf("Your value is smaller than  value of the result\n");
-                     arr_game[count].totalGuess+=1;
+                     step = step +1;
+                     arr_game[count].totalGuess=step;
                 }
                
                 if(a == result)
                 {
                     printf("Your answer is correct!\n");
-                    arr_game[count].totalGuess+=1;
-                    arr_game[count].game_win+=1;
+                    step = step+1;
+                    arr_game[count].totalGuess=step;
+                    win = win+1;
+                    arr_game[count].game_win=win;
                     quit ='q'; // set for quit game after guess correct
                     checker = 1;
-                    count+=1;
+                    count=count+1;
                 }
                 else {
                     printf("Do you want to quit the game ? type q\n");
@@ -81,8 +87,9 @@ int main() {
                     if(quit=='q')
                     {
                         checker = 1;
-                        arr_game[count].game_lose+=1;
-                        count+=1;
+                        lose = lose +1;
+                        arr_game[count].game_lose=lose;
+                        count=count + 1;
                     }
                 }
 
@@ -107,7 +114,9 @@ int main() {
                 quit='0';
                 result=1;
                 checker = 0;
-                
+                lose = 0 ;
+                win = 0;
+                step = 0;
         }
 
 
@@ -159,9 +168,9 @@ int main() {
         {
             printf("Thank for playing this game!!");
             printf("History of all game:\n");
-            for( int i = 0; i<count ; i++)
+            for( int i = 0; i<=count ; i++)
             {
-                printf("Game No %d : ",arr_game[i].game_count-1);
+                printf("Game No %d : ",i+1);
                 printf("\n Win: %d", arr_game[i].game_win);
                 printf("\n Lose: %d", arr_game[i].game_lose);
                 printf("\n Step to end game: %d\n", arr_game[i].totalGuess);
